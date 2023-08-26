@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<h3 id="all-flights-header">All Flights</h3>
+<table id="flight-list" class="table">
+    <thead>
+        <tr>
+            <th>Flight Number</th>
+            <th>From</th>
+            <th>Airline</th>
+            <th>Departure</th>
+            <th>Gate</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (flights.length) { %>
+            <% flights.forEach(function(f) { %>
+                <tr>
+                    <td><%= f.flightNo %></td>
+                    <td><%= f.airport %></td>
+                    <td><%= f.airline %></td>
+                    <% let departure = f.departs.split('-') %>
+                    <% departure[2] = departure[2].split('T').slice(0,1).toString() %>
+                    <% let departureStr = `${departure[1]}/${departure[2]}/${departure[0]}` %>
+                    <td><%= departureStr %></td>
+                    <td><%= f.gate %></td>
+                    <td><a href="/flights/<%= f._id %>">View More</a></td>
+                </tr>
+            <% }); %> 
+        <% } else { %>
+            <tr>
+                <td colspan="5">No flights scheduled at this time. Check back later!</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<%- include('../partials/footer') %>

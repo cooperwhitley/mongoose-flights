@@ -1,0 +1,112 @@
+<%- include('../partials/header') %>
+<br>
+<h4 style="text-align: center;">Flight Itenerary</h4>
+<br>
+<table id="flight-details" class="table">
+    <thead>
+        <tr>
+            <th>Flight Number</th>
+            <th>Airport</th>
+            <th>Airline</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Gate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= flight.flightNo %></td>
+            <td><%= flight.airport %></td>
+            <td><%= flight.airline %></td>
+            <% let departure = flight.departs.split('-') %>
+            <% departure[2] = departure[2].split('T').slice(0,1).toString() %>
+            <% let departureStr = `${departure[1]}/${departure[2]}/${departure[0]}` %>
+            <td><%= departureStr %></td>
+            <% let time = flight.departs.split('T') %>
+            <td><%= time[1] %></td>
+            <td><%= flight.gate %></td>
+        </tr>
+        <% if (flight.destinations.length) { %>
+            <% flight.destinations.forEach(dest => { %>
+                <tr>
+                    <td><%= dest.flightNo %></td>
+                    <td><%= dest.airport %></td>
+                    <td></td>
+                    <% let destDeparture = dest.arrival.split('-') %>
+                    <% destDeparture[2] = destDeparture[2].split('T').slice(0,1).toString() %>
+                    <% let destDepartureStr = `${destDeparture[1]}/${destDeparture[2]}/${destDeparture[0]}` %>
+                    <td><%= destDepartureStr %></td>
+                    <% let destTime = dest.arrival.split('T') %>
+                    <td><%= destTime[1] %></td>
+                    <td><%= dest.gate %></td>
+                </tr>
+            <% }) %>
+        <% } %>
+    </tbody>
+        <% if (tickets.length) { %>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Ticket Number</th>
+                    <th></th>
+                    <th>Tickets</th>
+                    <th></th>
+                    <th>Price</th>
+                    <th>Seat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let i = 0 %>
+                <% tickets.forEach(ticket => { %>
+                    <% i += 1 %>
+                    <tr>
+                        <td><%= i %></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>$<%= ticket.price %></td>
+                        <td><%= ticket.seat %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        <% } %>
+</table>
+<br>
+<button class="btn btn-secondary"><a href="/tickets/new/<%= flight._id %>" style="color: white; text-decoration: none;">Add a ticket</a></button>
+<br>
+<h4 style="text-align: right;">Add a connection</h4>
+<br>
+<form action="/destinations/<%= flight._id %>" method="POST">
+    <div class="mb-3">
+        <label class="form-label">Where is the next destination?</label>
+        <select name="airport" class="form-select">
+            <option value="BNA">Nashville (BNA)</option>
+            <option value="CLT">Charlotte (CLT)</option>
+            <option value="ATL">Atlanta (ATL)</option>
+            <option value="DFW">Dallas (DFW)</option>
+            <option value="IAD">D.C. (IAD)</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">What is your next flight number?</label>
+        <input type="number" name="flightNo" min="1" max="9999" class="form-control">
+        <div class="form-text">Enter a number 1-9999</div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">When does your flight arrive?</label>
+        <input type="datetime-local" name="arrival" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">We'll automatically add the gate number for you! It's totally not made up at random, we promise.</label>
+        <br>
+        <input type="submit" value="Add Destination" class="btn btn-primary">
+    </div>
+</form>
+<%- include('../partials/footer') %>

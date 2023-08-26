@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
+    <header>
+        <h3 id="site-name">Mongoose Flight Tracker</h3>
+        <div id="flight-nav">
+            <ul class="nav justify-content-end">
+                <li class="nav-item"><a href="/flights/new" class="nav-link">Track a new flight</a></li>
+                <li class="nav-item"><a href="/flights" class="nav-link">View all flights</a></li>
+            </ul>
+        </div>
+    </header>

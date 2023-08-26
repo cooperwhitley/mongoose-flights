@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+<form action="/flights" method="POST">
+    <div class="mb-3">
+        <label class="form-label">Where are you coming from?</label>
+        <select name="airport" class="form-select">
+            <option value="BNA">Nashville (BNA)</option>
+            <option value="CLT">Charlotte (CLT)</option>
+            <option value="ATL">Atlanta (ATL)</option>
+            <option value="DFW">Dallas (DFW)</option>
+            <option value="IAD">D.C. (IAD)</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Who are you flying with?</label>
+        <select name="airline" class="form-select">
+            <option value="American">American</option>
+            <option value="Southwest">Southwest</option>
+            <option value="Delta">Delta</option>
+            <option value="United">United</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">What is your flight number?</label>
+        <input type="number" name="flightNo" min="1" max="9999" class="form-control">
+        <div class="form-text">Enter a number 1-9999</div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">When does the flight depart?</label>
+        <input type="datetime-local" name="departs" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">We'll automatically add the gate number for you! It's totally not made up at random, we promise.</label>
+        <br>
+        <input type="submit" value="Add Flight" class="btn btn-primary">
+    </div>
+</form>
+<%- include('../partials/footer') %>
